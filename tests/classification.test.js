@@ -16,6 +16,18 @@ assert.equal(new Set(groups.map(group=>group.id)).size,groups.length,'group IDs 
 const assignments = groups.flatMap(group=>group.itemIds);
 assert.equal(new Set(assignments).size,assignments.length,'every file belongs to exactly one main group');
 assert.equal(assignments.length,items.length,'all files remain assigned');
+// The selected public catalog deliberately omits external course archives.
+// Keep the detailed source-specific regression below available with an
+// explicitly supplied private fixture; do not require those files publicly.
+if (!original.repositories.some(repo => repo.id === 'course-materials')) {
+  assert.deepEqual(classification.apply(copy(data)),data,'public classification is stable');
+  for (const group of groups) {
+    assert(group.itemIds.every(id => byId.has(id)),'group only refers to published files');
+    assert(group.repoIds.every(id => original.repositories.some(repo => repo.id === id)),'group repository exists');
+  }
+  console.log('Public classification passed: '+items.length+' files, '+groups.length+' groups');
+  process.exit(0);
+}
 for (const [id,source] of Object.entries(classification.verifiedItems)) {
   const item = byId.get(id);
   assert(item,'verified item exists: '+id);

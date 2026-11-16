@@ -1,0 +1,1004 @@
+{
+  "updated": "2026-11-16",
+  "books": [
+    {
+      "id": "A02-02",
+      "title": "Rudin《数学分析原理》第3版",
+      "originalTitle": "Principles of Mathematical Analysis - Walter Rudin (3rd ed.)",
+      "author": "Rudin",
+      "aliases": [
+        "Rudin《数学分析原理》第3版",
+        "数学分析原理（第3版）",
+        "第三版",
+        "第03版",
+        "Rudin《数学分析原理》第三版",
+        "数学分析原理（第三版）"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      },
+      "chineseEdition": {
+        "title": "数学分析原理",
+        "checkedOn": "2026-11-16",
+        "manuscript": false
+      }
+    },
+    {
+      "id": "A04-04",
+      "title": "Zorich《数学分析 I》",
+      "originalTitle": "Mathematical Analysis I",
+      "author": "Zorich",
+      "aliases": [
+        "Zorich《数学分析 I》",
+        "数学分析 I"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "A04-05",
+      "title": "Zorich《数学分析 II》",
+      "originalTitle": "Mathematical Analysis II",
+      "author": "Zorich",
+      "aliases": [
+        "Zorich《数学分析 II》",
+        "数学分析 II"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "A05-06",
+      "title": "Stein/Shakarchi《傅里叶分析：导论》",
+      "originalTitle": "Fourier Analysis - An Introduction - Stein and Shakarchi",
+      "author": "Stein/Shakarchi",
+      "aliases": [
+        "Stein/Shakarchi《傅里叶分析：导论》",
+        "傅里叶分析：导论"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "B01-07",
+      "title": "Axler《线性代数应该这样学》第4版",
+      "originalTitle": "Linear Algebra Done Right - Sheldon Axler (4th ed.)",
+      "author": "Axler",
+      "aliases": [
+        "Axler《线性代数应该这样学》第4版",
+        "线性代数应该这样学（第4版）",
+        "第四版",
+        "第04版",
+        "Axler《线性代数应该这样学》第四版",
+        "线性代数应该这样学（第四版）"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "B02-08",
+      "title": "Artin《代数》第2版",
+      "originalTitle": "Algebra - Michael Artin (2nd ed.)",
+      "author": "Artin",
+      "aliases": [
+        "Artin《代数》第2版",
+        "代数（第2版）",
+        "第二版",
+        "第02版",
+        "Artin《代数》第二版",
+        "代数（第二版）"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "B04-10",
+      "title": "Dummit/Foote《抽象代数》第3版",
+      "originalTitle": "Abstract Algebra, 3rd ed.",
+      "author": "Dummit/Foote",
+      "aliases": [
+        "Dummit/Foote《抽象代数》第3版",
+        "抽象代数（第3版）",
+        "第三版",
+        "第03版",
+        "Dummit/Foote《抽象代数》第三版",
+        "抽象代数（第三版）"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      },
+      "chineseEdition": {
+        "title": "抽象代数",
+        "checkedOn": "2026-11-16",
+        "manuscript": true
+      }
+    },
+    {
+      "id": "B08-14",
+      "title": "Carrell《群、矩阵与向量空间》",
+      "originalTitle": "Groups, Matrices, and Vector Spaces",
+      "author": "Carrell",
+      "aliases": [
+        "Carrell《群、矩阵与向量空间》",
+        "群、矩阵与向量空间"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "C01-15",
+      "title": "Shifrin《微分几何：曲线与曲面第一教程》",
+      "originalTitle": "Differential Geometry - A First Course in Curves and Surfaces",
+      "author": "Shifrin",
+      "aliases": [
+        "Shifrin《微分几何：曲线与曲面第一教程》",
+        "微分几何：曲线与曲面第一教程"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "C02-16",
+      "title": "Prasolov《直观拓扑》恢复修订第1版",
+      "originalTitle": "Prasolov_直观拓扑_IntuitiveTopology",
+      "author": "Prasolov",
+      "aliases": [
+        "Prasolov《直观拓扑》恢复修订第1版",
+        "直观拓扑",
+        "第一版",
+        "第01版",
+        "Prasolov《直观拓扑》恢复修订第一版"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "C03-17",
+      "title": "Coxeter《几何学引论》第2版",
+      "originalTitle": "Introduction to Geometry",
+      "author": "Coxeter",
+      "aliases": [
+        "Coxeter《几何学引论》第2版",
+        "几何学引论（第2版）",
+        "第二版",
+        "第02版",
+        "Coxeter《几何学引论》第二版",
+        "几何学引论（第二版）"
+      ],
+      "translation": {
+        "progress": "译稿已收录；底本有缺页或缺陷。"
+      }
+    },
+    {
+      "id": "C04-18",
+      "title": "Tao《数学分析 I》第3版",
+      "originalTitle": "Analysis I",
+      "author": "Tao",
+      "aliases": [
+        "Tao《数学分析 I》第3版",
+        "数学分析 I（第3版）",
+        "第三版",
+        "第03版",
+        "Tao《数学分析 I》第三版",
+        "数学分析 I（第三版）"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "C05-19",
+      "title": "《图论的迷人世界》",
+      "originalTitle": "The Fascinating World of Graph Theory",
+      "author": "",
+      "aliases": [
+        "《图论的迷人世界》",
+        "图论的迷人世界",
+        "图论",
+        "离散组合"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "C06-20",
+      "title": "Adams《The Knot Book》",
+      "originalTitle": "The Knot Book",
+      "author": "Adams",
+      "aliases": [
+        "Adams《The Knot Book》",
+        "The Knot Book"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "C08-22",
+      "title": "Sibley《离散几何探索》",
+      "originalTitle": "Exploring Discrete Geometry",
+      "author": "Sibley",
+      "aliases": [
+        "Sibley《离散几何探索》",
+        "离散几何探索"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "C09-23",
+      "title": "Goodman《拓扑学入门》",
+      "originalTitle": "Beginning Topology",
+      "author": "Goodman",
+      "aliases": [
+        "Goodman《拓扑学入门》",
+        "拓扑学入门"
+      ],
+      "translation": {
+        "progress": "译稿已收录；底本有缺页或缺陷。"
+      }
+    },
+    {
+      "id": "D03-26",
+      "title": "Patrick《中级计数与概率》",
+      "originalTitle": "Intermediate Counting & Probability",
+      "author": "Patrick",
+      "aliases": [
+        "Patrick《中级计数与概率》",
+        "中级计数与概率"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "D04-27",
+      "title": "Alon/Spencer《概率方法》第4版",
+      "originalTitle": "The Probabilistic Method, Fourth Edition (Noga Alon, Joel H. Spencer)",
+      "author": "Alon/Spencer",
+      "aliases": [
+        "Alon/Spencer《概率方法》第4版",
+        "概率方法（第4版）",
+        "第四版",
+        "第04版",
+        "Alon/Spencer《概率方法》第四版",
+        "概率方法（第四版）"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "D05-28",
+      "title": "《OpenIntro Statistics》",
+      "originalTitle": "OpenIntro Statistics",
+      "author": "",
+      "aliases": [
+        "《OpenIntro Statistics》",
+        "OpenIntro Statistics"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "D06-29",
+      "title": "Rice《数理统计与数据分析》第3版",
+      "originalTitle": "Mathematical Statistics and Data Analysis",
+      "author": "Rice",
+      "aliases": [
+        "Rice《数理统计与数据分析》第3版",
+        "数理统计与数据分析（第3版）",
+        "第三版",
+        "第03版",
+        "Rice《数理统计与数据分析》第三版",
+        "数理统计与数据分析（第三版）"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "E01-30",
+      "title": "Sauer · 数值分析 · 华章数学译丛54",
+      "originalTitle": "Sauer_数值分析_华章数学译丛54",
+      "author": "",
+      "aliases": [
+        "Sauer · 数值分析 · 华章数学译丛54",
+        "数值分析（Sauer，原书第2版）"
+      ],
+      "ownedChineseEdition": true
+    },
+    {
+      "id": "E03-32",
+      "title": "Trefethen/Bau《数值线性代数》",
+      "originalTitle": "Trefethen_数值线性代数",
+      "author": "Trefethen/Bau",
+      "aliases": [
+        "Trefethen/Bau《数值线性代数》",
+        "数值线性代数（Trefethen/Bau）"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "E05-34",
+      "title": "Chong · 最优化导论",
+      "originalTitle": "Chong_最优化导论",
+      "author": "",
+      "aliases": [
+        "Chong · 最优化导论",
+        "最优化导论（中文第4版）"
+      ],
+      "ownedChineseEdition": true
+    },
+    {
+      "id": "P02-39",
+      "title": "费曼物理学讲义 第1卷",
+      "originalTitle": "费曼物理学讲义 第1卷",
+      "author": "",
+      "aliases": [
+        "费曼物理学讲义 第1卷",
+        "费曼物理学讲义 第一卷"
+      ],
+      "ownedChineseEdition": true
+    },
+    {
+      "id": "P02-40",
+      "title": "费曼物理学讲义 第2卷",
+      "originalTitle": "费曼物理学讲义 第2卷",
+      "author": "",
+      "aliases": [
+        "费曼物理学讲义 第2卷",
+        "费曼物理学讲义 第二卷"
+      ],
+      "ownedChineseEdition": true
+    },
+    {
+      "id": "P02-41",
+      "title": "费曼物理学讲义 第3卷",
+      "originalTitle": "费曼物理学讲义 第3卷",
+      "author": "",
+      "aliases": [
+        "费曼物理学讲义 第3卷",
+        "费曼物理学讲义 第三卷"
+      ],
+      "ownedChineseEdition": true
+    },
+    {
+      "id": "P03-42",
+      "title": "Halliday/Resnick/Walker《物理学基础》",
+      "originalTitle": "Fundamentals of Physics",
+      "author": "Halliday/Resnick/Walker",
+      "aliases": [
+        "Halliday/Resnick/Walker《物理学基础》",
+        "物理学基础（Extended，第11版）"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "P04-43",
+      "title": "大众物理学第4册《光子和原子核》",
+      "originalTitle": "Physics for Everyone, Book 4: Photons and Nuclei",
+      "author": "大众物理学第4册",
+      "aliases": [
+        "大众物理学第4册《光子和原子核》",
+        "大众物理学第4册：光子和原子核",
+        "第四册",
+        "第04册",
+        "大众物理学第四册《光子和原子核》",
+        "大众物理学第四册：光子和原子核"
+      ],
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-005",
+      "title": "范畴论：为数学工作者而写（第二版）",
+      "originalTitle": "Categories for the Working Mathematician",
+      "author": "Mac Lane",
+      "aliases": [
+        "GTM 005",
+        "GTM-005",
+        "Categories for the Working Mathematician",
+        "范畴论：为数学工作者而写（第二版）"
+      ],
+      "series": "GTM 5",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-007",
+      "title": "算术教程",
+      "originalTitle": "A Course in Arithmetic",
+      "author": "Serre",
+      "aliases": [
+        "GTM 007",
+        "GTM-007",
+        "A Course in Arithmetic",
+        "算术教程"
+      ],
+      "series": "GTM 7",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-009",
+      "title": "Lie 代数与表示论导论",
+      "originalTitle": "Introduction to Lie Algebras and Representation Theory",
+      "author": "Humphreys",
+      "aliases": [
+        "GTM 009",
+        "GTM-009",
+        "Introduction to Lie Algebras and Representation Theory",
+        "Lie 代数与表示论导论"
+      ],
+      "series": "GTM 9",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-011",
+      "title": "单复变函数 I（第二版）",
+      "originalTitle": "Functions of One Complex Variable I",
+      "author": "Conway",
+      "aliases": [
+        "GTM 011",
+        "GTM-011",
+        "Functions of One Complex Variable I",
+        "单复变函数 I（第二版）"
+      ],
+      "series": "GTM 11",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-033",
+      "title": "微分拓扑",
+      "originalTitle": "Differential Topology",
+      "author": "Hirsch",
+      "aliases": [
+        "GTM 033",
+        "GTM-033",
+        "Differential Topology",
+        "微分拓扑"
+      ],
+      "series": "GTM 33",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-042",
+      "title": "有限群的线性表示",
+      "originalTitle": "Linear Representations of Finite Groups",
+      "author": "Serre",
+      "aliases": [
+        "GTM 042",
+        "GTM-042",
+        "Linear Representations of Finite Groups",
+        "有限群的线性表示"
+      ],
+      "series": "GTM 42",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-052",
+      "title": "代数几何",
+      "originalTitle": "Algebraic Geometry",
+      "author": "Hartshorne",
+      "aliases": [
+        "GTM 052",
+        "GTM-052",
+        "Algebraic Geometry",
+        "代数几何"
+      ],
+      "series": "GTM 52",
+      "translation": {
+        "progress": "译稿已收录。"
+      },
+      "chineseEdition": {
+        "title": "代数几何",
+        "checkedOn": "2026-11-16",
+        "manuscript": false
+      }
+    },
+    {
+      "id": "GTM-060",
+      "title": "经典力学的数学方法",
+      "originalTitle": "Mathematical Methods of Classical Mechanics",
+      "author": "Arnold",
+      "aliases": [
+        "GTM 060",
+        "GTM-060",
+        "Mathematical Methods of Classical Mechanics",
+        "经典力学的数学方法"
+      ],
+      "series": "GTM 60",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-073",
+      "title": "代数",
+      "originalTitle": "Algebra",
+      "author": "Hungerford",
+      "aliases": [
+        "GTM 073",
+        "GTM-073",
+        "Algebra",
+        "代数"
+      ],
+      "series": "GTM 73",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-082",
+      "title": "代数拓扑中的微分形式",
+      "originalTitle": "Differential Forms in Algebraic Topology",
+      "author": "Bott Tu",
+      "aliases": [
+        "GTM 082",
+        "GTM-082",
+        "Differential Forms in Algebraic Topology",
+        "代数拓扑中的微分形式"
+      ],
+      "series": "GTM 82",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-084",
+      "title": "现代数论的经典导论",
+      "originalTitle": "A Classical Introduction to Modern Number Theory",
+      "author": "Ireland Rosen",
+      "aliases": [
+        "GTM 084",
+        "GTM-084",
+        "A Classical Introduction to Modern Number Theory",
+        "现代数论的经典导论"
+      ],
+      "series": "GTM 84",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-096",
+      "title": "泛函分析教程（第二版）",
+      "originalTitle": "A Course in Functional Analysis",
+      "author": "Conway",
+      "aliases": [
+        "GTM 096",
+        "GTM-096",
+        "A Course in Functional Analysis",
+        "泛函分析教程（第二版）"
+      ],
+      "series": "GTM 96",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-106",
+      "title": "椭圆曲线的算术（第二版）",
+      "originalTitle": "The Arithmetic of Elliptic Curves",
+      "author": "Silverman",
+      "aliases": [
+        "GTM 106",
+        "GTM-106",
+        "The Arithmetic of Elliptic Curves",
+        "椭圆曲线的算术（第二版）"
+      ],
+      "series": "GTM 106",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-113",
+      "title": "布朗运动与随机微积分（第二版）",
+      "originalTitle": "Brownian Motion and Stochastic Calculus",
+      "author": "Karatzas Shreve",
+      "aliases": [
+        "GTM 113",
+        "GTM-113",
+        "Brownian Motion and Stochastic Calculus",
+        "布朗运动与随机微积分（第二版）"
+      ],
+      "series": "GTM 113",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-129",
+      "title": "表示论：第一教程",
+      "originalTitle": "Representation Theory",
+      "author": "Fulton Harris",
+      "aliases": [
+        "GTM 129",
+        "GTM-129",
+        "Representation Theory",
+        "表示论：第一教程"
+      ],
+      "series": "GTM 129",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-135",
+      "title": "高等线性代数",
+      "originalTitle": "Advanced Linear Algebra",
+      "author": "Roman",
+      "aliases": [
+        "GTM 135",
+        "GTM-135",
+        "Advanced Linear Algebra",
+        "高等线性代数"
+      ],
+      "series": "GTM 135",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-139",
+      "title": "拓扑与几何",
+      "originalTitle": "Topology and Geometry",
+      "author": "Bredon",
+      "aliases": [
+        "GTM 139",
+        "GTM-139",
+        "Topology and Geometry",
+        "拓扑与几何"
+      ],
+      "series": "GTM 139",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-150",
+      "title": "交换代数：面向代数几何",
+      "originalTitle": "Commutative Algebra with a View Toward Algebraic Geometry",
+      "author": "Eisenbud",
+      "aliases": [
+        "GTM 150",
+        "GTM-150",
+        "Commutative Algebra with a View Toward Algebraic Geometry",
+        "交换代数：面向代数几何"
+      ],
+      "series": "GTM 150",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-152",
+      "title": "多胞形讲义",
+      "originalTitle": "Lectures on Polytopes",
+      "author": "Ziegler",
+      "aliases": [
+        "GTM 152",
+        "GTM-152",
+        "Lectures on Polytopes",
+        "多胞形讲义"
+      ],
+      "series": "GTM 152",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-169",
+      "title": "矩阵分析",
+      "originalTitle": "Matrix Analysis",
+      "author": "Bhatia",
+      "aliases": [
+        "GTM 169",
+        "GTM-169",
+        "Matrix Analysis",
+        "矩阵分析"
+      ],
+      "series": "GTM 169",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-173",
+      "title": "图论（第三版，2005电子版）",
+      "originalTitle": "Graph Theory",
+      "author": "Diestel",
+      "aliases": [
+        "GTM 173",
+        "GTM-173",
+        "Graph Theory",
+        "图论（第三版，2005电子版）"
+      ],
+      "series": "GTM 173",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-175",
+      "title": "扭结理论导论",
+      "originalTitle": "An Introduction to Knot Theory",
+      "author": "Lickorish",
+      "aliases": [
+        "GTM 175",
+        "GTM-175",
+        "An Introduction to Knot Theory",
+        "扭结理论导论"
+      ],
+      "series": "GTM 175",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-176",
+      "title": "黎曼流形导论（第二版）",
+      "originalTitle": "Introduction to Riemannian Manifolds",
+      "author": "John Lee",
+      "aliases": [
+        "GTM 176",
+        "GTM-176",
+        "Introduction to Riemannian Manifolds",
+        "黎曼流形导论（第二版）"
+      ],
+      "series": "GTM 176",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-202",
+      "title": "拓扑流形导论",
+      "originalTitle": "Introduction to Topological Manifolds",
+      "author": "John Lee",
+      "aliases": [
+        "GTM 202",
+        "GTM-202",
+        "Introduction to Topological Manifolds",
+        "拓扑流形导论"
+      ],
+      "series": "GTM 202",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-203",
+      "title": "对称群：表示、组合算法与对称函数",
+      "originalTitle": "The Symmetric Group",
+      "author": "Sagan",
+      "aliases": [
+        "GTM 203",
+        "GTM-203",
+        "The Symmetric Group",
+        "对称群：表示、组合算法与对称函数"
+      ],
+      "series": "GTM 203",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-207",
+      "title": "代数图论",
+      "originalTitle": "Algebraic Graph Theory",
+      "author": "Godsil Royle",
+      "aliases": [
+        "GTM 207",
+        "GTM-207",
+        "Algebraic Graph Theory",
+        "代数图论"
+      ],
+      "series": "GTM 207",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-211",
+      "title": "代数",
+      "originalTitle": "Algebra",
+      "author": "Serge Lang",
+      "aliases": [
+        "GTM 211",
+        "GTM-211",
+        "Algebra",
+        "代数"
+      ],
+      "series": "GTM 211",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-212",
+      "title": "离散几何讲义",
+      "originalTitle": "Lectures on Discrete Geometry",
+      "author": "Matousek",
+      "aliases": [
+        "GTM 212",
+        "GTM-212",
+        "Lectures on Discrete Geometry",
+        "离散几何讲义"
+      ],
+      "series": "GTM 212",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-218",
+      "title": "光滑流形导论（第二版）",
+      "originalTitle": "Introduction to Smooth Manifolds",
+      "author": "John Lee",
+      "aliases": [
+        "GTM 218",
+        "GTM-218",
+        "Introduction to Smooth Manifolds",
+        "光滑流形导论（第二版）"
+      ],
+      "series": "GTM 218",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      },
+      "chineseEdition": {
+        "title": "光滑流形导论",
+        "checkedOn": "2026-11-16",
+        "manuscript": true
+      }
+    },
+    {
+      "id": "GTM-222",
+      "title": "Lie 群、Lie 代数与表示",
+      "originalTitle": "Lie Groups, Lie Algebras, and Representations",
+      "author": "Brian Hall",
+      "aliases": [
+        "GTM 222",
+        "GTM-222",
+        "Lie Groups, Lie Algebras, and Representations",
+        "Lie 群、Lie 代数与表示"
+      ],
+      "series": "GTM 222",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-238",
+      "title": "枚举教程",
+      "originalTitle": "A Course in Enumeration",
+      "author": "Aigner",
+      "aliases": [
+        "GTM 238",
+        "GTM-238",
+        "A Course in Enumeration",
+        "枚举教程"
+      ],
+      "series": "GTM 238",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-267",
+      "title": "量子理论：为数学工作者而写",
+      "originalTitle": "Quantum Theory for Mathematicians",
+      "author": "Brian Hall",
+      "aliases": [
+        "GTM 267",
+        "GTM-267",
+        "Quantum Theory for Mathematicians",
+        "量子理论：为数学工作者而写"
+      ],
+      "series": "GTM 267",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-275",
+      "title": "微分几何：联络、曲率与示性类",
+      "originalTitle": "Differential Geometry: Connections, Curvature, and Characteristic Classes",
+      "author": "Loring Tu",
+      "aliases": [
+        "GTM 275",
+        "GTM-275",
+        "Differential Geometry: Connections, Curvature, and Characteristic Classes",
+        "微分几何：联络、曲率与示性类"
+      ],
+      "series": "GTM 275",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "GTM-282",
+      "title": "测度、积分与实分析",
+      "originalTitle": "Measure, Integration & Real Analysis",
+      "author": "Axler",
+      "aliases": [
+        "GTM 282",
+        "GTM-282",
+        "Measure, Integration & Real Analysis",
+        "测度、积分与实分析"
+      ],
+      "series": "GTM 282",
+      "translation": {
+        "progress": "译稿已收录。"
+      }
+    },
+    {
+      "id": "GTM-295",
+      "title": "测度论、概率与随机过程",
+      "originalTitle": "Measure Theory, Probability, and Stochastic Processes",
+      "author": "Le Gall",
+      "aliases": [
+        "GTM 295",
+        "GTM-295",
+        "Measure Theory, Probability, and Stochastic Processes",
+        "测度论、概率与随机过程"
+      ],
+      "series": "GTM 295",
+      "translation": {
+        "progress": "按现有底本翻译，未覆盖原书全本。"
+      }
+    },
+    {
+      "id": "munkres-topology",
+      "title": "拓扑学",
+      "originalTitle": "Topology",
+      "author": "James R. Munkres",
+      "aliases": [],
+      "chineseEdition": {
+        "title": "拓扑学",
+        "checkedOn": "2026-11-16",
+        "manuscript": false
+      }
+    },
+    {
+      "id": "ahlfors-complex",
+      "title": "复分析",
+      "originalTitle": "Complex Analysis",
+      "author": "Lars V. Ahlfors",
+      "aliases": [],
+      "chineseEdition": {
+        "title": "复分析",
+        "checkedOn": "2026-11-16",
+        "manuscript": false
+      }
+    }
+  ]
+}

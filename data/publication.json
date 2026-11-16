@@ -1,0 +1,15 @@
+{
+  "privateMetadataAllowlist": [
+    "xhc144-notes/book-project",
+    "xhc144-notes/ai-study-notes",
+    "xhc144-notes/shuzhimi-toolbox",
+    "xhc144-notes/gtm-selected-library",
+    "xhc144-qiuzhen/qiuzhen-2027-reference-library",
+    "xhc144-works/face-guard",
+    "xhc144-works/study-feed",
+    "xhc144-works/api-observer",
+    "xhc144-works/stacked-grove",
+    "xhc144-works/blender-designs",
+    "xhc144-ai/skills"
+  ]
+}

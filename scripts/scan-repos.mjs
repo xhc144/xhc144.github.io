@@ -14,6 +14,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {mayPublishMetadata} from './publication-policy.mjs';
 
 const run = promisify(execFile);
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -64,7 +65,9 @@ async function listRepositories() {
   const orgs = (await gh('user/orgs?per_page=100', {paginate: true})).map(org => org.login).filter(login => login.startsWith(USER));
   const orgRepos = (await pool(orgs, 4, org => gh(`orgs/${org}/repos?per_page=100&type=all`, {paginate: true}))).flat();
   const all = new Map();
-  for (const repo of [...own, ...orgRepos]) all.set(repo.full_name, repo);
+  for (const repo of [...own, ...orgRepos]) {
+    if (mayPublishMetadata(repo.full_name, repo)) all.set(repo.full_name, repo);
+  }
   return {orgs, repos: [...all.values()].sort((a, b) => a.full_name.localeCompare(b.full_name))};
 }
 

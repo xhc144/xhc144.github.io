@@ -59,15 +59,14 @@ function entryCard(title,description,count,target,symbol,className='entry-card')
   return el;
 }
 function showHome() {
-  heading('想找哪一类资料？','从一套试卷、一份讲义或一本书开始。点开资料后，再选择题目、解答或其他版本。');
+  heading('想找哪一类资料？','从一份讲义或一本书开始。点开资料后，再选择配套文件或其他版本。');
   breadcrumb([['首页']]);
   const fragment=document.createDocumentFragment();
   const grid=node('div','home-entries');
   for(const section of catalog.navigation.sections){const count=groups.filter(group=>group.section===section.id&&!group.browseHidden).length;grid.append(entryCard(section.title,section.description,count+' 组',route(section.id),symbols[section.id],'entry-card home-entry '+section.id));}
   fragment.append(grid);
   const quick=node('section','quick-start');quick.append(node('h2','','常用入口'));
-  const links=node('div','quick-links');links.append(routeLink('清北学堂模拟卷 →',route('papers','清北学堂')),routeLink('深圳中学试卷 →',route('papers','深圳中学')),routeLink('概率与统计讲义 →',route('subjects','probability')));quick.append(links);fragment.append(quick);
-  const classroomEntry=button('阮禾课堂讲义系列 →',()=>openGroup('teacher-series-ruanhe-classroom'));classroomEntry.dataset.group='teacher-series-ruanhe-classroom';links.append(classroomEntry);
+  const links=node('div','quick-links');links.append(routeLink('概率与统计讲义 →',route('subjects','probability')),routeLink('按学科找书 →',route('books')),anchor('书籍翻译中心 →','../translations/'));quick.append(links);fragment.append(quick);
   const overview=anchor('','../repos/','overview-entry');const body=node('div');body.append(node('h2','','所有仓库，各放什么？'),node('p','','查看每个仓库的用途与入口，以及哪些内容还只在分支里。'));overview.append(body,node('span','','仓库总览 →'));fragment.append(overview);
   $('view').replaceChildren(fragment);$('results-status').textContent='';
 }
@@ -247,6 +246,7 @@ function closeDetails() {
 }
 function renderRoute() {
   const [section='home',key]=routeParts();const dialog=$('material-dialog');
+  if(!['home','group','repositories'].includes(section)&&!catalog.navigation.sections.some(value=>value.id===section)){navigate('#home');return;}
   if(section==='group'){
     const group=groupById.get(key);if(!group){navigate('#home');return;}
     if(activeDetailId!==key){detailUse='all';activeDetailId=key;}
@@ -270,7 +270,7 @@ function renderRoute() {
   if(focusedGroup){const trigger=$('view').querySelector('[data-group="'+focusedGroup+'"]');if(trigger){for(let ancestor=trigger.parentElement;ancestor;ancestor=ancestor.parentElement)if(ancestor.tagName==='DETAILS')ancestor.open=true;trigger.focus({preventScroll:true});}focusedGroup='';}
 }
 async function start() {
-  const response=await fetch('./catalog.json?v=20261008-ruanhe-series-2');if(!response.ok)throw new Error('Catalog request failed');catalog=sourceNavigation.apply(catalogClassification.apply(await response.json()));
+  const response=await fetch('./catalog.json?v=20261116-public-selection');if(!response.ok)throw new Error('Catalog request failed');catalog=sourceNavigation.apply(catalogClassification.apply(await response.json()));
   groups=catalog.materialGroups;groupById=new Map(groups.flatMap(group=>[group.id,...(group.aliasIds||[])].map(id=>[id,group])));repositories=new Map(catalog.repositories.map(repo=>[repo.id,repo]));
   const groupSearch=new Map(groups.map(group=>[group.key,[group.title,group.description,group.navigationDomain,group.browseHidden?'管理资料':''].join(' ')]));
   fileById=new Map(catalog.repositories.flatMap(repo=>repo.items.map(item=>[item.id,{repo,item,search:normalize([item.name,item.purpose,item.filename,...item.subjects,...item.topics,item.institution,item.sourceLabel,item.series,item.phase,...item.uses,...item.aliases,item.author,item.kind,item.pages!==null?item.pages+'页':'',item.groupRole,item.courseTopicTitle,sourceNavigation.identityLabel(item),groupSearch.get(item.groupKey),repo.id].join(' ')),numberSearch:normalize([item.name,item.series,...item.aliases].join(' '))}])));

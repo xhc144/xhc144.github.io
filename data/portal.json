@@ -12,7 +12,13 @@
       "name": "PDF 资料库",
       "url": "materials/",
       "icon": "book",
-      "meta": "试卷 · 讲义 · 书籍"
+      "meta": "学科讲义 · 书籍"
+    },
+    {
+      "name": "书籍翻译中心",
+      "url": "translations/",
+      "icon": "book",
+      "meta": "按书名 · 作者查中文译本"
     },
     {
       "name": "Claude 实验室",

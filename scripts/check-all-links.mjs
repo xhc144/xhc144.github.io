@@ -17,6 +17,7 @@ const SOURCES = [
   {file: 'docs/materials/index.html', page: SITE + 'materials/'},
   {file: 'docs/materials/app.js', page: SITE + 'materials/'},
   {file: 'docs/materials/catalog.json', page: SITE + 'materials/'},
+  {file: 'docs/translations/index.html', page: SITE + 'translations/'},
   {file: 'README.md', page: null},
   {file: 'data/repositories.json', page: null},
 ];

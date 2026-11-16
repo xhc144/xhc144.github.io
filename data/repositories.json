@@ -1,16 +1,16 @@
 {
   "title": "xhc144 仓库总览",
-  "reviewed": "2026-10-20",
+  "reviewed": "2026-11-16",
   "owners": [
     {
       "id": "xhc144-qiuzhen",
-      "name": "求真书院资料",
-      "intro": "2027 数学领军计划的考纲参考书、补充书目、教师讲义与清华历年试卷。"
+      "name": "数学与物理书籍",
+      "intro": "分析、代数、几何、概率与物理书目。"
     },
     {
       "id": "xhc144-notes",
       "name": "讲义与学科资料",
-      "intro": "竞赛讲义、AI 原创讲义、外部课程与试卷、MIT OCW 中文重编、GTM 译稿和高中化学资料。"
+      "intro": "数学讲义、独立专题、中文译稿与学科资料。"
     },
     {
       "id": "xhc144-works",
@@ -60,76 +60,7 @@
           "label": "逐书详情",
           "url": "https://github.com/xhc144-qiuzhen/qiuzhen-2027-reference-library/blob/main/docs/books.md"
         }
-      ],
-      "branchNotes": {
-        "retypeset/introduction-linear-algebra-zh-cn": "《线性代数入门》原生 LaTeX 重排的暂停稿：保留源 1–186 页（全书 335 页），183–186 页为未审草稿。按当时要求暂停、不并入 main。",
-        "retypeset/zhao-qualitative-semiquantitative-physics": "赵凯华《定性与半定量物理学》重排的暂停稿：已验 144/249 源页，另存 145–161 页未验草稿。按当时要求暂停、不并入 main。",
-        "translate/halliday-fundamentals-physics-zh-cn": "Halliday 第 15 阶段待核草稿（第 4 章 4-7 节与问答题），未编译、未计入完成页数。",
-        "preserve/zorich-ii-20261006T124547Z-source-drafts": {
-          "text": "Zorich II 草稿保存点；main 已有更新版本，仅多一份交接记录。",
-          "minor": true
-        },
-        "preserve/zorich-ii-20261006T131039Z-remaining-drafts": {
-          "text": "Zorich II 剩余草稿保存点；main 已有更新版本，仅多一份交接记录。",
-          "minor": true
-        }
-      }
-    },
-    {
-      "full": "xhc144-qiuzhen/qiuzhen-supplementary-library",
-      "title": "求真补充书目",
-      "summary": "2027 领军计划补充资料：交换代数与常微分方程教材、李思的讲义、编著与研究资料。原 69 份 PDF 去掉 3 份重复后保留 66 份，普通 Git 存储，无需 Git LFS。",
-      "highlights": [
-        "按代数、分析等主题列出完整教材与讲义",
-        "试读、旧版本与课堂分讲归入同一主题",
-        "附 SHA256 校验与来源记录"
-      ],
-      "tags": [
-        "math"
-      ],
-      "links": [
-        {
-          "label": "来源记录",
-          "url": "https://github.com/xhc144-qiuzhen/qiuzhen-supplementary-library/blob/main/SOURCES.md"
-        }
       ]
-    },
-    {
-      "full": "xhc144-qiuzhen/yupin-lecture-notes",
-      "title": "于品讲义",
-      "summary": "清华大学数学系于品教授的课程讲义归档：数学分析（三个版本）、Riemann 几何、群与 Galois 理论、抽象代数（香蕉空间可编辑源），另有第三方整理的数分习题解答。",
-      "highlights": [
-        "10 份 PDF 原件按字节保存，不使用 Git LFS",
-        "抽象代数保留 68 项 Markdown 与图片源文件",
-        "第三方答案与教师讲义分别注明来源"
-      ],
-      "tags": [
-        "math"
-      ],
-      "links": [
-        {
-          "label": "讲义原件",
-          "url": "https://github.com/xhc144-qiuzhen/yupin-lecture-notes/tree/main/source"
-        }
-      ]
-    },
-    {
-      "full": "xhc144-qiuzhen/tsinghua-math-exams",
-      "title": "清华数学试卷",
-      "summary": "清华数学系与求真书院历年课程考试、资格考试，按学科、课程和年份整理；中文题目、AI 参考解答与原卷配对，并保留来源。",
-      "highlights": [
-        "数学分析、测度与积分、复分析、代数、拓扑、泛函、优化、数值、概率统计等",
-        "每份试卷标注年份学期与考试类型",
-        "原卷与 LaTeX 源码分列"
-      ],
-      "tags": [
-        "math",
-        "exam"
-      ],
-      "links": [],
-      "branchNotes": {
-        "review/linear-english-2024-midterm": "2024 秋英文线性代数期中的中文稿，送独立审校用；对应文件已在 main，main 的版本更新。"
-      }
     },
     {
       "full": "xhc144-notes/book-project",
@@ -172,27 +103,6 @@
         {
           "label": "讲义目录",
           "url": "https://github.com/xhc144-notes/ai-study-notes/tree/main/lectures"
-        }
-      ]
-    },
-    {
-      "full": "xhc144-notes/course-materials",
-      "title": "外部课程讲义、机构试卷与竞赛真题",
-      "summary": "老师、机构与比赛的外部资料及忠实转写：机构模拟卷、课堂讲义系列、CMC／丘赛／Putnam 等竞赛真题；同题的 AI 解答、纯题版与原手稿放在同一资料组。",
-      "highlights": [
-        "按机构、课程讲义、竞赛真题逐层展开",
-        "PDF 显示真实文件名、简述与直接下载",
-        "阮禾课堂讲义系列有独立总目录"
-      ],
-      "tags": [
-        "math",
-        "physics",
-        "exam"
-      ],
-      "links": [
-        {
-          "label": "阮禾课堂系列",
-          "url": "https://github.com/xhc144-notes/course-materials/blob/main/materials/ruanhe/README.md"
         }
       ]
     },
@@ -258,16 +168,7 @@
           "label": "翻译规范",
           "url": "https://github.com/xhc144-notes/gtm-selected-library/blob/main/TRANSLATION_GUIDELINES.md"
         }
-      ],
-      "branchNotes": {
-        "translate/gtm-005-zh": {
-          "text": "译稿已在 main；分支多一次续接核验记录，交付说明比 main 新。",
-          "minor": true
-        },
-        "translate/gtm-282-zh": "译稿已在 main；分支有一次源码包复验和更新的交接说明（含重新打包的源码 ZIP），尚未并入。",
-        "translate/gtm-052-zh": "提交历史与 main 不同，但全部文件内容已在 main。",
-        "translate/gtm-082-zh": "提交历史与 main 不同，但全部文件内容已在 main。"
-      }
+      ]
     },
     {
       "full": "xhc144-notes/chem-teaching-materials",
@@ -286,11 +187,7 @@
           "label": "系统讲义 PDF",
           "url": "https://github.com/xhc144-notes/chem-teaching-materials/blob/main/%E9%AB%98%E4%B8%AD%E5%8C%96%E5%AD%A6%E7%B3%BB%E7%BB%9F%E8%AE%B2%E4%B9%89/%E9%AB%98%E4%B8%AD%E5%8C%96%E5%AD%A6%E7%B3%BB%E7%BB%9F%E8%AE%B2%E4%B9%89.pdf"
         }
-      ],
-      "branchNotes": {
-        "claude/funny-cori-g00nra": "新增「数值积分实验台」网页（输入函数后对比各算法误差），并改了 README；未并入 main。",
-        "claude/vibrant-lamport-q2zg1b": "新增《数值积分与数值微分》合编网页讲义；未并入 main。"
-      }
+      ]
     },
     {
       "full": "xhc144-works/prism-wardens",
@@ -460,28 +357,6 @@
           "url": "https://github.com/xhc144-ai/ai-self-study/tree/main/dist"
         }
       ]
-    },
-    {
-      "full": "xhc144/claude-lab",
-      "title": "Claude 实验仓库",
-      "summary": "多个独立实验的合集：交互数学、创世沙盒与游戏、AI 产品原型、多智能体研究实验室、Windows 桌面软件、程序化数学影片与 LaTeX 模板。GitHub Pages 上的项目导航收录 25 个项目。",
-      "highlights": [
-        "浏览器：数境 MathScape、数学知识星图、万象 Myriad、薪火纪 Emberstack、回响荒野 Echowild",
-        "Windows 软件：律影 Motif、音乐粒子宇宙、声准 Phonica、墨誊 Moteng、鸿雁邮箱（Releases 发布、自动更新）",
-        "9 部数学讲解影片在线播放，墨经 LaTeX 模板，2027 新领军预测训练卷"
-      ],
-      "tags": [
-        "math",
-        "software",
-        "game",
-        "film",
-        "ai"
-      ],
-      "links": [],
-      "branchNotes": {
-        "claude/determined-rubin-lapugg": "新增 GitHub Pages 部署工作流 .github/workflows/pages.yml，并让 Ship 合并后触发部署；未并入 main。"
-      },
-      "branchSummary": "AI 在 claude/** 分支开发，Ship 流水线测试通过后自动合并进 main，所以大多数分支已经并入。"
     },
     {
       "full": "xhc144/Claude-lab-2",

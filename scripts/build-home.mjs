@@ -6,11 +6,18 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {selectPublishedRepositories} from './publication-policy.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
 const site = read('data/repositories.json');
 const scan = read('data/scan.json');
+scan.repos = selectPublishedRepositories(scan.repos);
+const catalog = read('docs/materials/catalog.json');
+const materialStats = {
+  groups: catalog.materialGroups.filter(group => !group.browseHidden).length,
+  pdf: catalog.repositories.flatMap(repo => repo.items).filter(item => item.kind === 'PDF').length,
+};
 const portal = read('data/portal.json');
 const GH = 'https://github.com';
 const PAGES = 'https://xhc144.github.io/';
@@ -29,6 +36,7 @@ const STATE = {
   'main-newer': {label: 'main 已有更新版本', tone: 'ok'},
   'branch-newer': {label: '分支有较新改动', tone: 'warn'},
   'branch-only': {label: '有仅在分支的文件', tone: 'warn'},
+  'unchecked': {label: '待核查', tone: 'warn'},
 };
 
 function repoView(full) {
@@ -40,7 +48,8 @@ function repoView(full) {
       ...branch,
       note: typeof note === 'string' ? note : note.text,
       minor: Boolean(note.minor),
-      open: STATE[branch.state]?.tone === 'warn',
+      pending: branch.state === 'unchecked',
+      open: branch.state !== 'unchecked' && STATE[branch.state]?.tone === 'warn',
     };
   });
   const open = branches.filter(branch => branch.open)
@@ -53,7 +62,8 @@ function repoView(full) {
     ...(s.releases.length ? [{label: `Releases · ${s.releases.length}`, url: `${url}/releases`}] : []),
     ...(branches.length ? [{label: `全部分支 · ${s.branches.length}`, url: `${url}/branches/all`}] : []),
   ];
-  return {...c, ...s, full, url, branches, open, links};
+  const pending = branches.filter(branch => branch.pending);
+  return {...c, ...s, full, url, branches, open, pending, links};
 }
 
 const owners = site.owners.map(owner => ({
@@ -75,18 +85,24 @@ const openBranches = allBranches.filter(branch => branch.open)
   .sort((a, b) => Number(Boolean(b.repo.mainNote)) - Number(Boolean(a.repo.mainNote)) || (b.onlyBranch || 0) - (a.onlyBranch || 0) || (b.branchNewer || 0) - (a.branchNewer || 0));
 const majorBranches = openBranches.filter(branch => !branch.minor);
 const minorBranches = openBranches.filter(branch => branch.minor);
+const pendingBranches = allBranches.filter(branch => branch.pending);
 const totals = {
   repos: repos.length,
   public: repos.filter(repo => !repo.private).length,
   private: repos.filter(repo => repo.private).length,
   branches: allBranches.length,
-  merged: allBranches.filter(branch => !branch.open).length,
+  merged: allBranches.filter(branch => !branch.open && !branch.pending).length,
+  pending: pendingBranches.length,
   open: openBranches.length,
   openRepos: new Set(openBranches.map(branch => branch.repo.full)).size,
   pdf: repos.reduce((sum, repo) => sum + repo.pdf, 0),
-  owners: owners.length,
+  owners: owners.filter(owner => owner.repos.length).length,
 };
 const scannedDate = scan.scannedAt.slice(0, 10);
+const branchRefsDate = (scan.branchRefsCheckedAt || scan.scannedAt).slice(0, 10);
+const branchRefsTime = (scan.branchRefsCheckedAt || scan.scannedAt).replace('T', ' ').slice(0, 16);
+const branchOverview = totals.pending ? `${totals.pending} 个分支待核查${totals.open ? `，${totals.open} 个已有内容差异记录` : ''}`
+  : totals.open ? `${totals.open} 个分支有内容差异记录` : totals.branches ? '已审计分支的内容都已在默认分支中' : '当前均只有默认分支';
 
 // ---------- 工具 ----------
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch]));
@@ -97,6 +113,7 @@ const compareUrl = (repo, name) => `${repo.url}/compare/${encodeURIComponent(rep
 const tagName = id => site.tags[id] || id;
 
 function branchFacts(branch) {
+  if (branch.pending) return '仅确认分支存在，尚未比较文件内容';
   const parts = [];
   if (branch.onlyBranch) parts.push(`${branch.onlyBranch} 个文件仅在分支`);
   if (branch.branchNewer) parts.push(`${branch.branchNewer} 个文件分支较新`);
@@ -117,7 +134,7 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
 const themeIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17Z"/></svg>';
 const siteNav = (prefix, current) => `<header class="site-nav"><div class="site-nav-inner">
     <a class="site-home" href="${prefix}" aria-label="xhc144 首页"><span aria-hidden="true">∑</span><b>xhc<i>144</i></b></a>
-    <nav class="site-links" aria-label="站点导航">${[['repos/', '仓库总览'], ['materials/', 'PDF 资料库'], ['claude-lab/', '实验室']].map(([href, label]) => `<a href="${prefix}${href}"${href === current ? ' aria-current="page"' : ''}>${label}</a>`).join('')}</nav>
+    <nav class="site-links" aria-label="站点导航">${[['repos/', '仓库总览'], ['materials/', 'PDF 资料库'], ['translations/', '书籍翻译'], ['claude-lab/', '实验室']].map(([href, label]) => `<a href="${prefix}${href}"${href === current ? ' aria-current="page"' : ''}>${label}</a>`).join('')}</nav>
     <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换深浅色">${themeIcon}</button>
   </div></header>`;
 const icon = {
@@ -131,7 +148,7 @@ function branchItem(repo, branch) {
   return `
           <li class="${branch.open ? 'is-open' : ''}">
             <div class="branch-head"><a href="${esc(branchUrl(repo, branch.name))}"><code>${esc(branch.name)}</code></a>${branchStateBadge(branch)}</div>
-            <p class="branch-facts">${esc(branchFacts(branch))} · ${fmtDate(branch.date)}${branch.open ? ` · <a href="${esc(compareUrl(repo, branch.name))}">与 main 比较</a>` : ''}</p>
+            <p class="branch-facts">${esc(branchFacts(branch))}${branch.date ? ` · ${fmtDate(branch.date)}` : ''}${branch.open ? ` · <a href="${esc(compareUrl(repo, branch.name))}">与 main 比较</a>` : ''}</p>
             ${branch.note ? `<p class="branch-note">${esc(branch.note)}</p>` : ''}
           </li>`;
 }
@@ -139,15 +156,16 @@ function branchItem(repo, branch) {
 function branchList(repo) {
   if (!repo.branches.length) return `<p class="branches single">${icon.branch}<span>只有 main 分支</span></p>`;
   const items = list => `<ul>${list.map(branch => branchItem(repo, branch)).join('')}</ul>`;
-  const rest = repo.branches.filter(branch => !branch.open);
+  const rest = repo.branches.filter(branch => !branch.open && !branch.pending);
   // 有未并入分支时默认展开，已并入的分支再折叠一层。
   const restBlock = !rest.length ? ''
     : repo.open.length ? `<details class="merged"><summary>另外 ${rest.length} 个分支的内容已在 main</summary>${items(rest)}</details>`
     : items(rest);
   return `<details class="branches${repo.open.length ? ' has-open' : ''}">
-        <summary>${icon.branch}<span>${repo.branches.length + 1} 个分支</span><span class="branch-sum">${repo.open.length ? `<b>${repo.open.length} 个有未并入内容</b>` : '分支内容都已在 main'}</span></summary>
+        <summary>${icon.branch}<span>${repo.branches.length + 1} 个分支</span><span class="branch-sum">${repo.pending.length ? `${repo.pending.length} 个待核查` : repo.open.length ? `<b>${repo.open.length} 个有未并入内容</b>` : '已审计分支的内容都已在 main'}</span></summary>
         ${repo.branchSummary ? `<p class="branch-intro">${esc(repo.branchSummary)}</p>` : ''}
         ${repo.open.length ? items(repo.open) : ''}
+        ${repo.pending.length ? `<details class="pending"><summary>${repo.pending.length} 个待核查分支</summary>${items(repo.pending)}</details>` : ''}
         ${restBlock}
       </details>`;
 }
@@ -183,7 +201,6 @@ function repoCard(repo) {
       <article class="repo" id="${esc(repo.name)}" data-tags="${esc(repo.tags.join(' '))}" data-vis="${repo.private ? 'private' : 'public'}" data-search="${esc(search)}">
         <div class="repo-top">
           <h3>${esc(repo.title)}</h3>
-          ${repo.private ? `<span class="lock" title="私有仓库，需要登录有权限的账号">${icon.lock}</span>` : ''}
         </div>
         <p class="summary">${esc(short)}</p>
         ${tags ? `<p class="tags">${tags}</p>` : ''}
@@ -202,7 +219,7 @@ function repoCard(repo) {
 }
 
 function spotlight() {
-  if (!openBranches.length) return '<p class="all-clear">所有分支的内容都已在各自的 main 中。</p>';
+  if (!openBranches.length && !pendingBranches.length) return `<p class="all-clear">${totals.branches ? '已审计分支的内容都已在各自的 main 中。' : '收录仓库当前均只有默认分支。'}</p>`;
   const major = `<ol class="spot-list">${majorBranches.map(branch => `
         <li>
           <div class="spot-head"><a class="spot-repo" href="#${esc(branch.repo.name)}">${esc(branch.repo.title)}</a><span class="spot-where">${esc(branch.repo.name)}</span></div>
@@ -218,7 +235,8 @@ function spotlight() {
           <li><a href="${esc(branchUrl(branch.repo, branch.name))}"><code>${esc(branch.repo.name)} · ${esc(branch.name)}</code></a><span>${esc(branch.note || branchFacts(branch))}</span></li>`).join('')}
         </ul>
       </div>` : '';
-  return major + minor;
+  const pending = pendingBranches.length ? `<div class="spot-pending"><h3>待核查分支 · ${pendingBranches.length}</h3><p>本次只确认分支仍存在，尚未比较它们与默认分支的内容。</p><ul>${repos.filter(repo => repo.pending.length).map(repo => `<li><a href="#${esc(repo.name)}">${esc(repo.title)}</a> · ${repo.pending.length} 个待核查</li>`).join('')}</ul></div>` : '';
+  return major + minor + pending;
 }
 
 const tagCounts = Object.keys(site.tags).map(tag => [tag, repos.filter(repo => repo.tags.includes(tag)).length]).filter(([, count]) => count);
@@ -229,7 +247,7 @@ const html = `<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(site.title)}</title>
-  <meta name="description" content="xhc144 的 ${totals.repos} 个 GitHub 仓库：求真书院资料、讲义与学科资料、软件游戏与设计、AI 工具。逐个核对了每个分支是否已并入 main。">
+  <meta name="description" content="xhc144 的 ${totals.repos} 个 GitHub 仓库：数学书籍、讲义与学科资料、软件游戏与设计、AI 工具。按当前分支入口浏览。">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'">
   <meta name="theme-color" content="#f6f4ee" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#141513" media="(prefers-color-scheme: dark)">
@@ -246,7 +264,7 @@ const html = `<!doctype html>
   <header class="hero">
     <div class="wrap">
       <h1>仓库总览</h1>
-      <p class="lede">${totals.repos} 个仓库 · ${totals.public} 公开 · ${totals.private} 私有 · 个人账号与 ${totals.owners - 1} 个组织</p>
+      <p class="lede">${totals.repos} 个仓库 · 个人账号与 ${totals.owners - 1} 个组织</p>
       <nav class="owner-nav" aria-label="按组织跳转">${owners.map(owner => `<a href="#owner-${esc(owner.id)}"><b>${esc(owner.name)}</b><span>${owner.repos.length}</span></a>`).join('')}</nav>
     </div>
   </header>
@@ -258,11 +276,6 @@ const html = `<!doctype html>
         <div class="chips chips-tags" role="group" aria-label="按类别筛选">
           <button type="button" class="chip" data-tag="" aria-pressed="true">全部 <span>${totals.repos}</span></button>
           ${tagCounts.map(([tag, count]) => `<button type="button" class="chip" data-tag="${esc(tag)}" aria-pressed="false">${esc(tagName(tag))} <span>${count}</span></button>`).join('\n          ')}
-        </div>
-        <div class="chips chips-vis" role="group" aria-label="按可见性筛选">
-          <button type="button" class="chip" data-vis="" aria-pressed="true">全部</button>
-          <button type="button" class="chip" data-vis="public" aria-pressed="false">公开</button>
-          <button type="button" class="chip" data-vis="private" aria-pressed="false">私有</button>
         </div>
         <p class="result-count" id="result-count" role="status" aria-live="polite"></p>
       </form>
@@ -279,15 +292,15 @@ ${owners.map(owner => `
     </section>
 
     <details class="maintenance wrap" id="branches">
-      <summary><span>分支核查</span><span class="maint-sum">${majorBranches.length ? `${majorBranches.length} 处内容还只在分支里` : '所有分支都已并入'} · ${esc(scannedDate)}</span></summary>
-      <p class="maint-intro">逐个比较了 ${totals.branches} 个分支与 main 的文件内容：${totals.merged} 个分支的内容 main 已经有了，下面这些还没有。</p>
+      <summary><span>分支核查</span><span class="maint-sum">${esc(branchOverview)} · ${esc(branchRefsDate)}</span></summary>
+      <p class="maint-intro">分支存在性核对于 ${esc(branchRefsTime)} UTC。内容比较沿用 ${esc(scannedDate)} 的既有审计；新增的 ${totals.pending} 个分支待核查。</p>
       ${spotlight()}
     </details>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <p>扫描于 ${esc(scan.scannedAt.replace('T', ' ').slice(0, 16))} UTC · 私有仓库的链接需要登录有权限的 GitHub 账号</p>
+      <p>分支入口核对：${esc(branchRefsTime)} UTC · 文件统计扫描：${esc(scan.scannedAt.replace('T', ' ').slice(0, 16))} UTC</p>
       <nav aria-label="维护入口"><a href="../">首页</a><a href="${SELF}">本页源码</a><a href="${SELF}/blob/main/AGENTS.md">维护规则</a><a href="../materials/">PDF 资料库</a><a href="#main">回到顶部 ↑</a></nav>
     </div>
   </footer>
@@ -309,7 +322,7 @@ const shortOwner = id => portal.accounts[id] || id;
 const searchIndex = [
   ...portal.entries.map(entry => ({k: '入口', t: entry.name, s: entry.meta.replace('{repos}', totals.repos), u: entry.url})),
   ...portal.apps.map(app => ({k: '作品', t: app.name, s: app.note, u: app.url})),
-  ...repos.map(repo => ({k: shortOwner(repo.full.split('/')[0]), t: repo.title, s: repo.full, u: `repos/#${repo.name}`, p: repo.private ? 1 : 0,
+  ...repos.map(repo => ({k: shortOwner(repo.full.split('/')[0]), t: repo.title, s: repo.full, u: `repos/#${repo.name}`,
     q: [repo.summary, ...(repo.tags || []).map(tagName)].join(' ')})),
   ...accounts.map(owner => ({k: 'GitHub', t: owner.name, s: owner.id, u: `${GH}/${owner.id}`})),
 ];
@@ -326,7 +339,7 @@ const portalHtml = `<!doctype html>
   <link rel="icon" href="${favicon}">
   <script src="./boot.js" data-portal></script>
   <link rel="stylesheet" href="./site.css?v=${scannedDate}">
-  <link rel="stylesheet" href="./portal.css?v=${scannedDate}">
+  <link rel="stylesheet" href="./portal.css?v=20261116">
   <script src="./site.js?v=${scannedDate}" defer></script>
   <script src="./portal.js?v=${scannedDate}" defer></script>
 </head>
@@ -367,11 +380,11 @@ const mdEsc = value => String(value ?? '').replace(/\|/g, '\\|');
 const mdLinks = repo => repo.links.filter(link => link.label !== '仓库主页').map(link => `[${link.label}](${link.url})`).join(' · ');
 const readme = `# xhc144 仓库总览
 
-**网页版：[${PAGES.replace('https://', '').replace(/\/$/, '')}](${PAGES})**（首页）· [仓库总览](${PAGES}repos/) · [PDF 资料库](${PAGES}materials/) · [Claude 实验室](${PAGES}claude-lab/)
+**网页版：[${PAGES.replace('https://', '').replace(/\/$/, '')}](${PAGES})**（首页）· [仓库总览](${PAGES}repos/) · [PDF 资料库](${PAGES}materials/) · [书籍翻译中心](${PAGES}translations/) · [Claude 实验室](${PAGES}claude-lab/)
 
-个人账号与 ${totals.owners - 1} 个组织下共 **${totals.repos} 个仓库**（${totals.public} 个公开、${totals.private} 个私有）。下面按组织列出每个仓库的用途与入口；所有分支都核对过——**${majorBranches.length} 个分支还有 main 没有的实质内容**，见[分支核查](#分支核查)。
+本导航收录个人账号与 ${totals.owners - 1} 个组织下的 **${totals.repos} 个仓库**。下面按组织列出用途与入口；**${branchOverview}**，见[分支核查](#分支核查)。
 
-私有仓库的链接需要登录有权限的 GitHub 账号。中文介绍依据各仓库当前 README，页数、题数与进度以各仓库说明为准。扫描时间：${scan.scannedAt.replace('T', ' ').slice(0, 16)} UTC。
+中文介绍依据各仓库 README，页数、题数与进度以各仓库说明为准。分支入口核对：${branchRefsTime} UTC；文件统计扫描：${scan.scannedAt.replace('T', ' ').slice(0, 16)} UTC。
 
 ${owners.map(owner => `## ${owner.name} · [${owner.id}](${GH}/${owner.id})
 
@@ -379,21 +392,23 @@ ${owner.intro}
 
 | 仓库 | 用途 | 入口 | 分支 |
 | --- | --- | --- | --- |
-${owner.repos.map(repo => `| [${repo.name}](${repo.url})<br>${repo.private ? '私有' : '公开'} · ${fmtDate(repo.pushedAt)} | **${mdEsc(repo.title)}**：${mdEsc(repo.mainNote ? repo.mainNote + ' ' : '')}${mdEsc(repo.summary)}${repo.limits ? `<br>⚠ ${mdEsc(repo.limits)}` : ''} | ${mdLinks(repo) || '—'} | ${repo.branches.length ? `${repo.branches.length + 1} 个${repo.open.length ? `，**${repo.open.length} 个有未并入内容**` : '，内容都已在 main'}` : '仅 main'} |`).join('\n')}
+${owner.repos.map(repo => `| [${repo.name}](${repo.url})<br>${fmtDate(repo.pushedAt)} | **${mdEsc(repo.title)}**：${mdEsc(repo.mainNote ? repo.mainNote + ' ' : '')}${mdEsc(repo.summary)}${repo.limits ? `<br>⚠ ${mdEsc(repo.limits)}` : ''} | ${mdLinks(repo) || '—'} | ${repo.branches.length ? `${repo.branches.length + 1} 个${repo.pending.length ? `，**${repo.pending.length} 个待核查**` : repo.open.length ? `，**${repo.open.length} 个有未并入内容**` : '，已审计内容都已在 main'}` : '仅 main'} |`).join('\n')}
 `).join('\n')}
 ## 分支核查
 
-逐个比较了 ${totals.branches} 个非 main 分支：先看分支提交是否都已在 main 中，再对仍有独立提交的分支逐文件比较内容。${totals.merged} 个分支的内容 main 已经有了（包括提交历史不同、文件完全相同的情况）。以下 ${totals.open} 个分支有 main 没有的文件或较新的改动，其中 ${majorBranches.length} 个是实质内容${minorBranches.length ? `、${minorBranches.length} 个只差几份核验或交接记录` : ''}：
+${branchRefsTime} UTC 已核对当前 ${totals.repos} 个仓库的分支入口；已移除不存在的旧分支。当前 ${totals.branches} 个非默认分支中，${totals.pending} 个待核查。文件内容比较只沿用 ${scannedDate} 的既有审计：${totals.merged} 个分支的内容已在 main 中，${totals.open} 个保留内容差异记录。
 
 | 仓库 · 分支 | 情况 | 说明 |
 | --- | --- | --- |
 ${[...majorBranches, ...minorBranches].map(branch => `| [${branch.repo.name}](${branch.repo.url}) · [\`${branch.name}\`](${branchUrl(branch.repo, branch.name)}) | ${branchFacts(branch)} | ${branch.minor ? '（只差记录）' : ''}${mdEsc(branch.note || '分支里有 main 没有的文件。')} |`).join('\n')}
 
+${pendingBranches.length ? `### 待核查分支\n\n只确认以下分支仍存在，尚未比较文件内容。\n\n| 仓库 · 分支 | 状态 |\n| --- | --- |\n${pendingBranches.map(branch => `| [${branch.repo.name}](${branch.repo.url}) · [\`${branch.name}\`](${branchUrl(branch.repo, branch.name)}) | 待核查 |`).join('\n')}` : ''}
+
 “仅在分支”指 main 中既没有同路径文件、也没有相同内容的文件；“分支较新”指同路径文件内容不同，且分支上的最后修改晚于 main。合并、删除分支需要分别到各仓库处理，本仓库不改动其他仓库。
 
 ## PDF 资料库
 
-[PDF 资料库](${PAGES}materials/)把多个仓库里的 PDF 按试卷、学科讲义与书籍归组（247 组资料、408 份 PDF，目录核对于 2026-10-08），同一份资料的题目、原解答、AI 解答与源码集中选择下载。原来的网页地址（如 \`#group/…\`）会自动转到这里。
+[PDF 资料库](${PAGES}materials/)按学科讲义与书籍归组（${materialStats.groups} 组资料、${materialStats.pdf} 份 PDF，目录更新于 ${catalog.updated}），同一份资料的配套文件集中选择。原来的网页地址（如 \`#group/…\`）会自动转到这里。另有[书籍翻译中心](${PAGES}translations/)按书名、作者查找中文译稿。
 
 ## 更新本页
 
@@ -401,6 +416,7 @@ ${[...majorBranches, ...minorBranches].map(branch => `| [${branch.repo.name}](${
 
 \`\`\`bash
 node scripts/scan-repos.mjs     # 重新扫描全部仓库与分支，写入 data/scan.json
+node scripts/refresh-branch-refs.mjs  # 只刷新已收录仓库的分支入口，不重扫文件树
 node scripts/build-home.mjs     # 生成首页 docs/index.html、仓库总览 docs/repos/index.html 与 README.md
 \`\`\`
 
@@ -409,6 +425,6 @@ node scripts/build-home.mjs     # 生成首页 docs/index.html、仓库总览 do
 
 fs.mkdirSync(path.join(root, 'docs', 'repos'), {recursive: true});
 fs.writeFileSync(path.join(root, 'docs', 'index.html'), portalHtml);
-fs.writeFileSync(path.join(root, 'docs', 'repos', 'index.html'), html);
+fs.writeFileSync(path.join(root, 'docs', 'repos', 'index.html'), html.replace(/[ \t]+$/gm, ''));
 fs.writeFileSync(path.join(root, 'README.md'), readme);
-console.log(`已生成首页、仓库总览与 README.md：${totals.repos} 个仓库，${totals.branches} 个分支，${totals.open} 个有未并入内容`);
+console.log(`已生成首页、仓库总览与 README.md：收录 ${totals.repos} 个仓库，${totals.branches} 个非默认分支；${totals.pending} 个待核查，${totals.open} 个保留内容差异记录`);

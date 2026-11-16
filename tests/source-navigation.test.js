@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const classification=require('../docs/materials/classify-catalog.js');
 const navigation=require('../docs/materials/source-navigation.js');
-const original=JSON.parse(fs.readFileSync(path.join(__dirname,'../docs/materials/catalog.json'),'utf8'));
+const original=JSON.parse(fs.readFileSync(process.argv[2]||path.join(__dirname,'../docs/materials/catalog.json'),'utf8'));
 const copy=value=>JSON.parse(JSON.stringify(value));
 const data=navigation.apply(classification.apply(copy(original)));
 const items=data.repositories.flatMap(repo=>repo.items);
@@ -23,6 +23,17 @@ for(const repo of original.repositories)for(const item of repo.items){
 }
 for(const before of original.materialGroups)
   assert(byDeepLink.has(before.id),'old group deep link stays resolvable: '+before.id);
+if(!original.repositories.some(repo=>repo.id==='course-materials')){
+  assert.deepEqual(navigation.apply(copy(data)),data,'public navigation is stable');
+  const collect=node=>[...(node.groups||[]),...(node.children||[]).flatMap(collect)];
+  for(const section of data.navigation.sections){
+    const visible=groups.filter(group=>group.section===section.id&&!group.browseHidden);
+    const tree=navigation.build(visible,byItem,data.navigation.subjects,section.id);
+    assert.deepEqual(new Set(collect(tree).map(group=>group.id)),new Set(visible.map(group=>group.id)),'all published groups reachable');
+  }
+  console.log('Public source navigation passed: '+items.length+' files, '+groups.length+' groups');
+  process.exit(0);
+}
 const ruanhe=groups.find(group=>group.key==='subjects:lecture-d1da471de272');
 assert.equal(ruanhe.section,'papers');
 assert.equal(ruanhe.teacherLabel,'阮禾');
