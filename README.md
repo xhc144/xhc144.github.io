@@ -1,6 +1,8 @@
 # xhc144 仓库总览
 
-**网页版：[xhc144.github.io](https://xhc144.github.io/)**（首页）· [仓库总览](https://xhc144.github.io/repos/) · [PDF 资料库](https://xhc144.github.io/materials/) · [书籍翻译中心](https://xhc144.github.io/translations/) · [Claude 实验室](https://xhc144.github.io/claude-lab/)
+**网页版：[xhc144.github.io](https://xhc144.github.io/)**（首页） · [仓库总览](https://xhc144.github.io/repos/) · [PDF 资料库](https://xhc144.github.io/materials/) · [书籍翻译中心](https://xhc144.github.io/translations/)
+
+在线网页入口核对：2026-11-16。[个人博客](http://106.55.36.106/personal/) · [OpenTree](https://xhc144.github.io/open-friend-tree/) · [竞赛成绩查询](https://xhc144.github.io/gd-math-results/) · [代数几何文献库](https://xhc144.github.io/algebraic-geometry-corpus/) · [关衡集团](http://106.55.36.106/) · [文章归档](http://106.55.36.106/personal/archive/) · [每日新闻](http://106.55.36.106/personal/news/) · [资料库](http://106.55.36.106/personal/media/) · [数学](http://106.55.36.106/personal/math/) · [物理](http://106.55.36.106/personal/physics/) · [项目](http://106.55.36.106/personal/projects/) · [随笔](http://106.55.36.106/personal/notes/) · [Lean](http://106.55.36.106/personal/categories/Lean/) · [学习成果](http://106.55.36.106/personal/honors/) · [关于我](http://106.55.36.106/personal/about/) · [联系](http://106.55.36.106/personal/contact/) · [站内搜索](http://106.55.36.106/personal/search/)。暂不可用的旧入口不进入首页和搜索。
 
 本导航收录个人账号与 4 个组织下的 **17 个仓库**。下面按组织列出用途与入口；**57 个分支待核查**，见[分支核查](#分支核查)。
 
@@ -146,4 +148,4 @@ node scripts/refresh-branch-refs.mjs  # 只刷新已收录仓库的分支入口�
 node scripts/build-home.mjs     # 生成首页 docs/index.html、仓库总览 docs/repos/index.html 与 README.md
 ```
 
-新增或改名的仓库在 [data/repositories.json](data/repositories.json) 里补中文介绍；首页的入口与 Claude 实验室作品列表在 [data/portal.json](data/portal.json)。未收录的仓库会先用 GitHub 简介生成并在命令行提示。PDF 资料库的数据与测试见 `docs/materials/`、`scripts/normalize-catalog.js` 与 `tests/`。维护规则见 [AGENTS.md](AGENTS.md)。
+新增或改名的仓库在 [data/repositories.json](data/repositories.json) 里补中文介绍；首页的入口与在线网页列表在 [data/portal.json](data/portal.json)，暂不可用的入口设为 `enabled: false`，核实恢复后再启用。未收录的仓库会先用 GitHub 简介生成并在命令行提示。PDF 资料库的数据与测试见 `docs/materials/`、`scripts/normalize-catalog.js` 与 `tests/`。维护规则见 [AGENTS.md](AGENTS.md)。

@@ -24,54 +24,166 @@
       "name": "Claude 实验室",
       "url": "claude-lab/",
       "icon": "flask",
-      "meta": "游戏 · 可视化 · 影片"
+      "meta": "游戏 · 可视化 · 影片",
+      "enabled": false
     }
   ],
   "apps": [
     {
       "name": "数境",
       "url": "claude-lab/mathscape/",
-      "note": "MathScape：矩阵、复映射、微分方程可视化"
+      "note": "MathScape：矩阵、复映射、微分方程可视化",
+      "enabled": false
     },
     {
       "name": "知识星图",
       "url": "claude-lab/math-starmap/",
-      "note": "按新领军考纲连起来的数学知识图谱"
+      "note": "按新领军考纲连起来的数学知识图谱",
+      "enabled": false
     },
     {
       "name": "0 → ∞",
       "url": "claude-lab/personal-site/",
-      "note": "数学、物理与 AI 的交互仪器"
+      "note": "数学、物理与 AI 的交互仪器",
+      "enabled": false
     },
     {
       "name": "万象",
       "url": "claude-lab/myriad/",
-      "note": "Myriad：地形、生态与文明演化沙盒"
+      "note": "Myriad：地形、生态与文明演化沙盒",
+      "enabled": false
     },
     {
       "name": "薪火纪",
       "url": "claude-lab/emberstack/",
-      "note": "Emberstack：卡牌堆叠文明策略游戏"
+      "note": "Emberstack：卡牌堆叠文明策略游戏",
+      "enabled": false
     },
     {
       "name": "回响荒野",
       "url": "claude-lab/echowild/",
-      "note": "Echowild：体素世界建造与生存，需键鼠"
+      "note": "Echowild：体素世界建造与生存，需键鼠",
+      "enabled": false
     },
     {
       "name": "星枢",
       "url": "claude-lab/tensora/",
-      "note": "Tensora：AI 基础设施控制台原型"
+      "note": "Tensora：AI 基础设施控制台原型",
+      "enabled": false
     },
     {
       "name": "墨经",
       "url": "claude-lab/mojing/",
-      "note": "Mojing：中文数学 LaTeX 模板"
+      "note": "Mojing：中文数学 LaTeX 模板",
+      "enabled": false
     },
     {
       "name": "讲解影片",
       "url": "claude-lab/#film",
-      "note": "9 部数学讲解影片"
+      "note": "9 部数学讲解影片",
+      "enabled": false
+    },
+    {
+      "name": "个人博客",
+      "url": "http://106.55.36.106/personal/",
+      "note": "文章、新闻与个人项目",
+      "group": "网页"
+    },
+    {
+      "name": "OpenTree",
+      "url": "https://xhc144.github.io/open-friend-tree/",
+      "note": "树上的朋友：公开项目与作品分享",
+      "group": "网页"
+    },
+    {
+      "name": "竞赛成绩查询",
+      "url": "https://xhc144.github.io/gd-math-results/",
+      "note": "广东数学竞赛：按姓名、学校查询",
+      "group": "网页"
+    },
+    {
+      "name": "代数几何文献库",
+      "url": "https://xhc144.github.io/algebraic-geometry-corpus/",
+      "note": "EGA、SGA、FGA、Stacks与中文译稿",
+      "group": "网页"
+    },
+    {
+      "name": "关衡集团",
+      "url": "http://106.55.36.106/",
+      "note": "关衡集团网站",
+      "group": "网页"
+    },
+    {
+      "name": "文章归档",
+      "url": "http://106.55.36.106/personal/archive/",
+      "note": "个人博客 · 文章归档",
+      "group": "博客"
+    },
+    {
+      "name": "每日新闻",
+      "url": "http://106.55.36.106/personal/news/",
+      "note": "个人博客 · 每日新闻",
+      "group": "博客"
+    },
+    {
+      "name": "资料库",
+      "url": "http://106.55.36.106/personal/media/",
+      "note": "个人博客 · 资料库",
+      "group": "博客"
+    },
+    {
+      "name": "数学",
+      "url": "http://106.55.36.106/personal/math/",
+      "note": "个人博客 · 数学",
+      "group": "博客"
+    },
+    {
+      "name": "物理",
+      "url": "http://106.55.36.106/personal/physics/",
+      "note": "个人博客 · 物理",
+      "group": "博客"
+    },
+    {
+      "name": "项目",
+      "url": "http://106.55.36.106/personal/projects/",
+      "note": "个人博客 · 项目",
+      "group": "博客"
+    },
+    {
+      "name": "随笔",
+      "url": "http://106.55.36.106/personal/notes/",
+      "note": "个人博客 · 随笔",
+      "group": "博客"
+    },
+    {
+      "name": "Lean",
+      "url": "http://106.55.36.106/personal/categories/Lean/",
+      "note": "个人博客 · Lean",
+      "group": "博客"
+    },
+    {
+      "name": "学习成果",
+      "url": "http://106.55.36.106/personal/honors/",
+      "note": "个人博客 · 学习成果",
+      "group": "博客"
+    },
+    {
+      "name": "关于我",
+      "url": "http://106.55.36.106/personal/about/",
+      "note": "个人博客 · 关于我",
+      "group": "博客"
+    },
+    {
+      "name": "联系",
+      "url": "http://106.55.36.106/personal/contact/",
+      "note": "个人博客 · 联系",
+      "group": "博客"
+    },
+    {
+      "name": "站内搜索",
+      "url": "http://106.55.36.106/personal/search/",
+      "note": "个人博客 · 站内搜索",
+      "group": "博客"
     }
   ],
   "accounts": {

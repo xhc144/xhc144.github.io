@@ -46,8 +46,4 @@ footer p { margin: 7px 0; }
   .book-list { grid-template-columns: 1fr; }
   .book { padding: 19px; }
   .book-heading { flex-wrap: wrap; gap: 5px; }
-  .site-links a { padding: 7px 6px; font-size: 12px; }
-  .site-nav-inner { gap: 4px; }
-  .site-home span { width: 24px; }
-  .theme-toggle { width: 30px; height: 30px; }
 }

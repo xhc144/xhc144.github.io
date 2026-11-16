@@ -19,6 +19,10 @@ const materialStats = {
   pdf: catalog.repositories.flatMap(repo => repo.items).filter(item => item.kind === 'PDF').length,
 };
 const portal = read('data/portal.json');
+// 暂不可用的旧入口保留在维护数据中，不进入页面或搜索结果。
+const portalEntries = portal.entries.filter(entry => entry.enabled !== false);
+const portalApps = portal.apps.filter(app => app.enabled !== false);
+const portalAppGroups = [...new Set(portalApps.map(app => app.group || '网页'))];
 const GH = 'https://github.com';
 const PAGES = 'https://xhc144.github.io/';
 const SELF = `${GH}/xhc144/xhc144.github.io`;
@@ -133,8 +137,8 @@ function branchStateBadge(branch) {
 const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d2723'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Georgia,serif' font-size='42' fill='%23e2875f'%3E%CE%A3%3C/text%3E%3C/svg%3E";
 const themeIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17Z"/></svg>';
 const siteNav = (prefix, current) => `<header class="site-nav"><div class="site-nav-inner">
-    <a class="site-home" href="${prefix}" aria-label="xhc144 首页"><span aria-hidden="true">∑</span><b>xhc<i>144</i></b></a>
-    <nav class="site-links" aria-label="站点导航">${[['repos/', '仓库总览'], ['materials/', 'PDF 资料库'], ['translations/', '书籍翻译'], ['claude-lab/', '实验室']].map(([href, label]) => `<a href="${prefix}${href}"${href === current ? ' aria-current="page"' : ''}>${label}</a>`).join('')}</nav>
+    <a class="site-home" href="${prefix}" aria-label="xhc144 首页"><span aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 3h12v2H9l6 7-6 7h9v2H6v-2l6-7-6-7Z"/></svg></span><b>xhc<i>144</i></b></a>
+    <nav class="site-links" aria-label="站点导航">${[['repos/', '仓库总览'], ['materials/', 'PDF 资料库'], ['translations/', '书籍翻译']].map(([href, label]) => `<a href="${prefix}${href}"${href === current ? ' aria-current="page"' : ''}>${label}</a>`).join('')}</nav>
     <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换深浅色">${themeIcon}</button>
   </div></header>`;
 const icon = {
@@ -253,7 +257,7 @@ const html = `<!doctype html>
   <meta name="theme-color" content="#141513" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="${favicon}">
   <script src="../boot.js"></script>
-  <link rel="stylesheet" href="../site.css?v=${scannedDate}">
+  <link rel="stylesheet" href="../site.css?v=20261116-nav">
   <link rel="stylesheet" href="../home.css?v=${scannedDate}">
   <script src="../site.js?v=${scannedDate}" defer></script>
   <script src="../home.js?v=${scannedDate}" defer></script>
@@ -309,7 +313,7 @@ ${owners.map(owner => `
 `;
 
 // ---------- 首页 ----------
-// 只放入口：三个主要网页、Claude 实验室里的作品、各 GitHub 账号；详细内容留在各自页面。
+// 只放入口：主要网页、其他已上线网页、各 GitHub 账号；详细内容留在各自页面。
 // 搜索框用的索引随页面一起生成，放在 application/json 数据块里（不执行，符合 CSP）。
 const portalIcon = {
   layers: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>',
@@ -320,8 +324,8 @@ const portalIcon = {
 const accounts = [...owners].sort((a, b) => Number(b.id === 'xhc144') - Number(a.id === 'xhc144'));
 const shortOwner = id => portal.accounts[id] || id;
 const searchIndex = [
-  ...portal.entries.map(entry => ({k: '入口', t: entry.name, s: entry.meta.replace('{repos}', totals.repos), u: entry.url})),
-  ...portal.apps.map(app => ({k: '作品', t: app.name, s: app.note, u: app.url})),
+  ...portalEntries.map(entry => ({k: '入口', t: entry.name, s: entry.meta.replace('{repos}', totals.repos), u: entry.url})),
+  ...portalApps.map(app => ({k: app.group || '网页', t: app.name, s: app.note, u: app.url})),
   ...repos.map(repo => ({k: shortOwner(repo.full.split('/')[0]), t: repo.title, s: repo.full, u: `repos/#${repo.name}`,
     q: [repo.summary, ...(repo.tags || []).map(tagName)].join(' ')})),
   ...accounts.map(owner => ({k: 'GitHub', t: owner.name, s: owner.id, u: `${GH}/${owner.id}`})),
@@ -332,14 +336,14 @@ const portalHtml = `<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(portal.title)}</title>
-  <meta name="description" content="${esc(portal.title)}：${portal.entries.map(entry => esc(entry.name)).join('、')}。">
+  <meta name="description" content="${esc(portal.title)}：${portalEntries.map(entry => esc(entry.name)).join('、')}。">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'">
   <meta name="theme-color" content="#f6f4ee" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#141513" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="${favicon}">
   <script src="./boot.js" data-portal></script>
-  <link rel="stylesheet" href="./site.css?v=${scannedDate}">
-  <link rel="stylesheet" href="./portal.css?v=20261116">
+  <link rel="stylesheet" href="./site.css?v=20261116-nav">
+  <link rel="stylesheet" href="./portal.css?v=20261116-nav">
   <script src="./site.js?v=${scannedDate}" defer></script>
   <script src="./portal.js?v=${scannedDate}" defer></script>
 </head>
@@ -357,7 +361,7 @@ const portalHtml = `<!doctype html>
       <ul id="results" role="listbox" aria-label="搜索结果" hidden></ul>
     </div>
 
-    <nav class="entries reveal" aria-label="主要入口">${portal.entries.map((entry, i) => `
+    <nav class="entries reveal" aria-label="主要入口">${portalEntries.map((entry, i) => `
       <a href="${esc(entry.url)}">
         <span class="num">0${i + 1}</span>${portalIcon[entry.icon] || ''}
         <b>${esc(entry.name)}</b>
@@ -366,7 +370,7 @@ const portalHtml = `<!doctype html>
       </a>`).join('')}
     </nav>
 
-    <nav class="row reveal" aria-label="在线作品"><span class="label">作品</span>${portal.apps.map(app => `<a href="${esc(app.url)}" title="${esc(app.note)}">${esc(app.name)}</a>`).join('')}</nav>
+    ${portalAppGroups.map(group => `<nav class="row reveal" aria-label="${esc(group)}入口"><span class="label">${esc(group)}</span>${portalApps.filter(app => (app.group || '网页') === group).map(app => `<a href="${esc(app.url)}" title="${esc(app.note)}">${esc(app.name)}</a>`).join('')}</nav>`).join('\n    ')}
     <nav class="row reveal" aria-label="GitHub 账号与组织"><span class="label">GitHub</span>${accounts.map(owner => `<a href="${GH}/${esc(owner.id)}" title="${esc(owner.id)} · ${owner.repos.length} 个仓库">${esc(shortOwner(owner.id))}</a>`).join('')}</nav>
   </main>
   <footer><a href="${SELF}">源码</a></footer>
@@ -380,7 +384,9 @@ const mdEsc = value => String(value ?? '').replace(/\|/g, '\\|');
 const mdLinks = repo => repo.links.filter(link => link.label !== '仓库主页').map(link => `[${link.label}](${link.url})`).join(' · ');
 const readme = `# xhc144 仓库总览
 
-**网页版：[${PAGES.replace('https://', '').replace(/\/$/, '')}](${PAGES})**（首页）· [仓库总览](${PAGES}repos/) · [PDF 资料库](${PAGES}materials/) · [书籍翻译中心](${PAGES}translations/) · [Claude 实验室](${PAGES}claude-lab/)
+**网页版：[${PAGES.replace('https://', '').replace(/\/$/, '')}](${PAGES})**（首页）${portalEntries.map(entry => ` · [${entry.name}](${new URL(entry.url, PAGES).href})`).join('')}
+
+在线网页入口核对：2026-11-16。${portalApps.map(app => `[${mdEsc(app.name)}](${new URL(app.url, PAGES).href})`).join(' · ')}。暂不可用的旧入口不进入首页和搜索。
 
 本导航收录个人账号与 ${totals.owners - 1} 个组织下的 **${totals.repos} 个仓库**。下面按组织列出用途与入口；**${branchOverview}**，见[分支核查](#分支核查)。
 
@@ -420,7 +426,7 @@ node scripts/refresh-branch-refs.mjs  # 只刷新已收录仓库的分支入口�
 node scripts/build-home.mjs     # 生成首页 docs/index.html、仓库总览 docs/repos/index.html 与 README.md
 \`\`\`
 
-新增或改名的仓库在 [data/repositories.json](data/repositories.json) 里补中文介绍；首页的入口与 Claude 实验室作品列表在 [data/portal.json](data/portal.json)。未收录的仓库会先用 GitHub 简介生成并在命令行提示。PDF 资料库的数据与测试见 \`docs/materials/\`、\`scripts/normalize-catalog.js\` 与 \`tests/\`。维护规则见 [AGENTS.md](AGENTS.md)。
+新增或改名的仓库在 [data/repositories.json](data/repositories.json) 里补中文介绍；首页的入口与在线网页列表在 [data/portal.json](data/portal.json)，暂不可用的入口设为 \`enabled: false\`，核实恢复后再启用。未收录的仓库会先用 GitHub 简介生成并在命令行提示。PDF 资料库的数据与测试见 \`docs/materials/\`、\`scripts/normalize-catalog.js\` 与 \`tests/\`。维护规则见 [AGENTS.md](AGENTS.md)。
 `;
 
 fs.mkdirSync(path.join(root, 'docs', 'repos'), {recursive: true});

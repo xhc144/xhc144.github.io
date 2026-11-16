@@ -100,8 +100,8 @@ async function check(url) {
   if (u.host === 'xhc144.github.io') {
     const rel = decodeURIComponent(u.pathname).replace(/^\//, '');
     const local = path.join(root, 'docs', rel.endsWith('/') || rel === '' ? rel + 'index.html' : rel);
-    // 本仓库的文件在本地核对；claude-lab 等其他仓库的网页在线核对
-    if (!rel.startsWith('claude-lab')) return fs.existsSync(local) ? {ok: true} : {ok: false, note: '站内文件不存在：docs/' + rel};
+    // 同域名还承载其他仓库的 Pages；本仓库没有的路径须向线上核对。
+    if (fs.existsSync(local)) return {ok: true};
     const status = await http(u.origin + u.pathname);
     return status === 200 ? {ok: true} : {ok: false, note: `线上返回 ${status}`};
   }
