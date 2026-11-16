@@ -23,8 +23,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6
         with:
           repository: xhc144/xhc144.github.io
           path: .site-access-tools
@@ -32,9 +32,6 @@ jobs:
             scripts/enforce-access-gate.mjs
             docs/404.html
           sparse-checkout-cone-mode: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
       - name: Build guarded publication without changing source files
         env:
           PUBLISH_DIRECTORY: ${{ inputs.publish_directory }}
@@ -55,7 +52,7 @@ jobs:
           node .site-access-tools/scripts/enforce-access-gate.mjs "$output" --check
           touch "$output/.nojekyll"
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: ${{ runner.temp }}/password-gated-site
       - name: Deploy
