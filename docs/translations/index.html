@@ -8,10 +8,10 @@
   <title>书籍翻译中心 · xhc144</title>
   <script src="../boot.js"></script>
   <link rel="stylesheet" href="../site.css?v=20261116-nav">
-  <link rel="stylesheet" href="./styles.css?v=20261116-nav">
+  <link rel="stylesheet" href="./styles.css?v=20261116-search">
   <script src="../site.js" defer></script>
-  <script src="./search.js" defer></script>
-  <script src="./app.js" defer></script>
+  <script src="./config.js?v=20261116-search" defer></script>
+  <script src="./app.js?v=20261116-search" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主内容</a>
@@ -21,17 +21,15 @@
     <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换深浅色"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17Z"/></svg></button>
   </div></header>
   <main id="main" tabindex="-1">
-    <header class="intro"><p class="eyebrow">数学与物理 · 中文阅读</p><h1>书籍翻译中心</h1><p>找一本书，看看是否已有译稿或中文版本。</p></header>
+    <header class="intro"><p class="eyebrow">中文阅读</p><h1>书籍翻译中心</h1><p>输入书名，查有没有中文译本或译稿。</p></header>
     <form id="search-form" role="search">
       <label for="book-search">书名或作者</label>
-      <div class="search-box"><span aria-hidden="true">⌕</span><input type="search" id="book-search" placeholder="中文名、英文名、作者或 GTM 编号" autocomplete="off" aria-controls="book-list"><button id="clear-search" type="button" hidden>清除</button></div>
+      <div class="search-box"><span aria-hidden="true">⌕</span><input type="search" id="book-search" placeholder="书名，也可补充作者或版本" autocomplete="off" maxlength="160" required aria-controls="result"><button id="clear-search" type="button" hidden>清除</button><button id="submit-search" type="submit">查询</button></div>
     </form>
-    <div class="browse"><div class="filters" role="group" aria-label="译本类型"><button type="button" data-filter="all" aria-pressed="true">全部</button><button type="button" data-filter="mine" aria-pressed="false">已有译稿</button><button type="button" data-filter="chinese" aria-pressed="false">已查到中文版</button></div><p id="results-status" role="status" aria-live="polite">正在载入书目…</p></div>
-    <div id="book-list" class="book-list"></div>
-    <div id="empty-state" class="empty-state" hidden><h2>没有匹配的书目</h2><p>试试原文书名、作者姓氏或更短的关键词。当前目录未收录，不代表没有中文译本。</p><button type="button" id="reset-search">查看全部书目</button></div>
-    <div id="load-error" class="empty-state" hidden><h2>书目暂时未能载入</h2><p>请检查网络后重试。</p><button type="button" id="retry-load">重新载入</button></div>
+    <section id="result" aria-live="polite" aria-atomic="true" hidden><h2 id="result-title"></h2><p id="result-note"></p><ul id="versions"></ul></section>
+    <details class="search-links"><summary>其他检索入口</summary><nav id="search-links" aria-label="其他检索入口"></nav></details>
     <noscript><p>请开启 JavaScript 使用书目查找。</p></noscript>
-    <footer><p>“已有译稿”包含进行中的翻译；具体进度见书目。“已查到中文版”来自 Z-Library 书目核查，不表示本站提供该版本。</p><p>书目更新：<time id="updated">—</time> · <a href="../">回到首页</a></p></footer>
+    <footer><a href="https://xhc144.github.io/">回到首页</a></footer>
   </main>
 </body>
 </html>

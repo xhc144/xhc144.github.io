@@ -1,3 +1,4 @@
+/* Query first: matched versions appear only after a request. */
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--ink); font: 16px/1.7 var(--sans); }
 button, input { font: inherit; }
@@ -47,3 +48,19 @@ footer p { margin: 7px 0; }
   .book { padding: 19px; }
   .book-heading { flex-wrap: wrap; gap: 5px; }
 }
+
+main { max-width: 850px; padding-top: 64px; }
+.search-box #submit-search { background: var(--ink); color: var(--paper); }
+.site-home svg { display: block; width: 18px; height: 18px; fill: currentColor; }
+button:disabled { opacity: .65; cursor: wait; }
+#result { margin-top: 30px; padding: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+#result h2 { font-size: 22px; }
+#result-note { color: var(--ink-soft); margin: 12px 0 0; }
+#versions { list-style: none; padding: 0; margin: 18px 0 0; }
+#versions:empty { display: none; }
+#versions li { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; padding: 10px 0; border-top: 1px solid var(--line); }
+#versions small { flex-shrink: 0; color: var(--ink-soft); font-size: 13px; }
+.search-links { margin: 24px 0; font-size: 14px; color: var(--ink-soft); }
+.search-links summary { cursor: pointer; }
+.search-links nav { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 14px; }
+@media (max-width: 680px) {main { padding-top: 40px; } #versions li { flex-direction: column; gap: 3px; } #result { padding: 20px; }}
