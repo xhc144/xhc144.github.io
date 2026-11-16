@@ -7,6 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {selectPublishedRepositories} from './publication-policy.mjs';
+import {protectHtml} from './enforce-access-gate.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
@@ -430,7 +431,7 @@ node scripts/build-home.mjs     # 生成首页 docs/index.html、仓库总览 do
 `;
 
 fs.mkdirSync(path.join(root, 'docs', 'repos'), {recursive: true});
-fs.writeFileSync(path.join(root, 'docs', 'index.html'), portalHtml);
-fs.writeFileSync(path.join(root, 'docs', 'repos', 'index.html'), html.replace(/[ \t]+$/gm, ''));
+fs.writeFileSync(path.join(root, 'docs', 'index.html'), protectHtml(portalHtml));
+fs.writeFileSync(path.join(root, 'docs', 'repos', 'index.html'), protectHtml(html.replace(/[ \t]+$/gm, '')));
 fs.writeFileSync(path.join(root, 'README.md'), readme);
 console.log(`已生成首页、仓库总览与 README.md：收录 ${totals.repos} 个仓库，${totals.branches} 个非默认分支；${totals.pending} 个待核查，${totals.open} 个保留内容差异记录`);

@@ -1,5 +1,14 @@
 # 仓库目录维护规范
 
+## 普通访客密码拦截（2026-11-16 用户授权）
+
+- 用户明确要求本站及项目子路径使用同一访问密码，并接受前端验证可被技术手段绕过；这不更改 GitHub 仓库权限。
+- 明文密码只保存在用户桌面，不得写入 Git、日志、README、测试报告或交接。`docs/access-gate.js` 仅保存公开盐值和校验摘要；会话按标签页存储，最长12小时，按钮可退出。
+- Pages 使用 GitHub Actions 发布。`.github/workflows/protected-pages.yml` 从发布目录导出副本，给全部 HTML 自动注入拦截后部署，原始扫描和数据不改写。现有主站、代数几何资料、广东竞赛查询和 OpenTree 复用同一流程。
+- 新增主站页面不省略校验；运行 `node scripts/enforce-access-gate.mjs` 和 `node scripts/enforce-access-gate.mjs --check`。`build-home.mjs` 已保留生成页验证入口。
+- 新建挂在 xhc144.github.io 下的独立项目站时，必须复用本仓库受保护发布工作流，并在仓库 Pages 设置中选择 GitHub Actions。只新增链接或根站脚本不能保护另一仓库的首次直接访问。其他组织域名不在本站密码范围。
+- 密码轮换需同时更新摘要与版本，检查深链首次访问、错误密码、跨页面会话和退出访问；不要把普通前端拦截描述成服务器权限控制。
+
 ## 范围
 
 本仓库（xhc144/xhc144.github.io，原名 repository-index）是 xhc144 个人账号及其组织（xhc144-qiuzhen、xhc144-notes、xhc144-works、xhc144-ai）全部仓库的公开导航源，维护 README.md 与 docs/ 中的 GitHub Pages 静态页面。保持简体中文、分类清晰、入口精简；实际资料、源码和构建产物保存在各自私有项目中。公开目录仅保存获授权的名称、用途、分类、实际页数、使用限制与稳定 GitHub 入口，禁止复制私有正文、用户数据、凭据或带令牌的下载地址。按用户明确要求，PDF 使用保留 GitHub 原权限的稳定 raw 下载链接，资料名称另开详情；不代理下载或复制文件到公开仓库。

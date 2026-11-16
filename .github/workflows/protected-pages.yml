@@ -1,0 +1,63 @@
+name: Publish password-gated Pages
+
+on:
+  workflow_call:
+    inputs:
+      publish_directory:
+        type: string
+        required: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: password-gated-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: xhc144/xhc144.github.io
+          path: .site-access-tools
+          sparse-checkout: |
+            scripts/enforce-access-gate.mjs
+            docs/404.html
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build guarded publication without changing source files
+        env:
+          PUBLISH_DIRECTORY: ${{ inputs.publish_directory }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          output="$RUNNER_TEMP/password-gated-site"
+          mkdir -p "$output"
+          if [ "$PUBLISH_DIRECTORY" = "." ]; then
+            git archive HEAD | tar -x -C "$output"
+          else
+            git archive "HEAD:$PUBLISH_DIRECTORY" | tar -x -C "$output"
+          fi
+          if [ ! -f "$output/404.html" ]; then
+            cp .site-access-tools/docs/404.html "$output/404.html"
+          fi
+          node .site-access-tools/scripts/enforce-access-gate.mjs "$output"
+          node .site-access-tools/scripts/enforce-access-gate.mjs "$output" --check
+          touch "$output/.nojekyll"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/password-gated-site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
